@@ -1,0 +1,15 @@
+{% extends "inventory/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+
+<div class="create-article">
+    <h2>Create new holder</h2>
+    <form class="site-form" action="" method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input type="submit" class="btn btn-primary" value="Create">
+    </form>
+    <br/>
+</div>
+
+{% endblock %}

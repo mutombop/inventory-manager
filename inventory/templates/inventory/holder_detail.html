@@ -1,0 +1,17 @@
+{% extends "inventory/base.html" %}
+{% block content %}
+
+<h2>{{ holder.full_name }}</h2>
+<hr>
+<p><strong>Title</strong>: {{holder.title}} </p>
+<p><strong>Section</strong>: {{holder.section }}</p>
+<p><strong>Duty station</strong>: {{holder.dutystation}}</p>
+    {% if not holder.active %}
+        <p><strong>Active</strong>: NO</p>
+    {% else %}
+        <p><strong>Active</strong>: YES</p>
+    {% endif %}
+<hr>
+<a class="btn btn-primary btn-sm" href="{% url 'allholders' %}" role="button">Back to holders list</a>
+
+{% endblock %}

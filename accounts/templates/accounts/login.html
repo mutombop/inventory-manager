@@ -1,0 +1,39 @@
+{% extends "inventory/base.html" %}
+{% load crispy_forms_tags %}
+
+
+{% block body %}
+<div class="container" style="background-image: url(../../static/img/memphis-colorful.png)">
+        <h1 class="text-center logo my-4">ICT Asset Inventory</h1>
+              <div class="row justify-content-center">
+                <div class="col-lg-8 col-md-10 col-sm-12">
+                  <div class="card">
+                    <div class="card-body">
+                      <!-- <h3 class="card-title">Sign up</h3> -->
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset class="form-group">
+            <legend class="border-bottom mb-4">Log In</legend>
+            {{ form|crispy }}
+        </fieldset>
+        <div class="form-group">
+            <button class="btn btn-primary btn-block" type="submit">Login</button>
+            <!-- <button class="btn btn-outline-info" type="submit">Login</button> -->
+        </div>
+    </form>
+</div>
+<div class="card-footer text-muted text-center">
+        Need an account? <a href="{% url 'register' %}">Sign Up Now</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!--     <div class="border-top pt-3">
+        <small class="text-muted">
+            Need an account? <a href="{% url 'register' %}">Sign Up Now</a>
+        </small>
+    </div>
+</div> -->
+
+{% endblock %}

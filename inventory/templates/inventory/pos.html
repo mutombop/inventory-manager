@@ -1,0 +1,36 @@
+{% extends "inventory/base.html" %}
+{% block content %}
+<div class="container">
+    <h2>Purchase Orders list</h2>
+    <br/>
+    <a class="btn btn-primary btn-sm" href="{% url 'newpo' %}" role="button">Create new purchase order</a>
+    <br/>
+    <br/>
+</div>
+<div class="container">
+    <table class="table table-striped table-sm">
+        <thead>
+            <tr>
+                <!-- <th>ID</th> -->
+                <th>Number</th>
+                <th>Section</th>
+                <th>Date delivered</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+                {% for po in pos %}
+                <tr>
+                    <!-- <td>{{ po.id }}</td> -->
+                    <td>{{ po.number }}</td>
+                    <td>{{ po.section }}</td>
+                    <td>{{ po.date_delivered }}</td>
+                    <td><a href="#" class="btn btn-outline-secondary btn-sm">Show / Edit</a></td>
+                    <td><a href="#" class="btn btn-outline-info btn-sm">View assets</a></td>
+                </tr>
+                {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

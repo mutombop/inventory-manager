@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'inventory/main.css' %}">
+
+    {% if title %}
+        <title>Asset Inventory - {{ title }}</title>
+    {% else %}
+        <title>Asset inventory</title>
+    {% endif %}
+    {% block stylesheet %}{% endblock %}
+</head>
+<body>
+  {% block body %}
+    <header class="site-header">
+            <nav class="navbar navbar-expand-md navbar-dark bg-primary fixed-top">
+        <!-- <nav class="navbar navbar-expand-md bg-steel fixed-top" style="background-color: 0099FF"> -->
+        <div class="container">
+          <a class="navbar-brand mr-4" href="{% url 'allassets' %}">ICT Asset Inventory</a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarToggle">
+            <div class="navbar-nav mr-auto">
+              <a class="nav-item nav-link" href="{% url 'allholders' %}">Holders</a>
+              <a class="nav-item nav-link" href="{% url 'allassets' %}">Assets</a>
+              <a class="nav-item nav-link" href="{% url 'allpos' %}">Purchase Orders</a>
+              <a class="nav-item nav-link" href="#">Reports</a>
+            </div>
+            <div class="navbar-nav">
+                    {% if user.is_authenticated %}
+                    <a class="nav-item nav-link" href="{% url 'logout' %}">Logout</a>
+                    {% else %}
+                      <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+                      <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+                    {% endif %}
+                  </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main role="main" class="container">
+      <div class="row">
+        <div class="col-md-9">
+        <!-- <div class="col-md-12"> -->
+          {% if messages %}
+            {% for message in messages %}
+              <div class="alert alert-{{message.tags}}">
+                {{message}}
+              </div>
+            {% endfor %}
+          {% endif %}
+          {% block content %}{% endblock %}
+        </div>
+        <div class="col-md-3">
+          <div class="content-section">
+            <h3>Reports</h3>
+            <!-- <p class='text-muted'>You can put any information here you'd like. -->
+              <ul class="list-group">
+                <li class="list-group-item list-group-item-light"><a href="{% url 'laptops3year' %}">3-year Laptops</a></li>
+                <li class="list-group-item list-group-item-light">3-year Smartphones</li>
+                <li class="list-group-item list-group-item-light"><a href="{% url 'stock_ict' %}">Stock ICT</a></li>
+                <li class="list-group-item list-group-item-light"><a href="{% url 'stock_admin' %}">Stock ADMIN</a></li>
+                <li class="list-group-item list-group-item-light"><a href="{% url 'psb_marked' %}">Items marked for PSB</a></li>
+                <!-- <li class="list-group-item list-group-item-light">etc</li> -->
+              </ul>
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+    {% endblock body %}
+</body>
+</html>
