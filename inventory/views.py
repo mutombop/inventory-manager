@@ -1,17 +1,34 @@
+from datetime import datetime, timedelta
 from django.shortcuts import render, redirect
 # from django.urls import reverse
-from django.views.generic import View
+# from django.views.generic import View
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import UpdateView
 from django.views.generic.detail import DetailView
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
-from django_xhtml2pdf.utils import generate_pdf
-from .models import Section, Holder, Purchaseorder, Asset
 from django.contrib import messages
-# from .utils import render_to_pdf
+import pdfkit
+from .models import Section, Holder, Purchaseorder, Asset
 from . import forms
-from datetime import datetime, timedelta
+
+import pdfkit
+options = {
+    'page-size': 'A4',
+    'margin-top': '2in',
+    'margin-right': '1in',
+    'margin-bottom': '1in',
+    'margin-left': '1in',
+    'encoding': "UTF-8",
+}
+path_wkthmltopdf = 'C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe'
+config = pdfkit.configuration(wkhtmltopdf=path_wkthmltopdf)
+pdfkit.from_url("http://google.com", "out.pdf", configuration=config, options=options)
+
+# for PDF rendering
+from django.conf import settings
+from django.views.generic import DetailView
+from django.template import loader
 
 
 # Create your views here.
@@ -105,15 +122,6 @@ class AssetMarkpsb(UpdateView):
     fields = ['inventorytag', 'amr', 'serialnumber', 'status', 'psbstatus', 'comment']
     initial = {'psbstatus': 'MARKED'}
 
-def receiptsheet(request, holder_id):
-    resp = HttpResponse(content_type='application/pdf')
-    context = {
-        'holder': Holder.objects.get(id=holder_id),
-        'assets': Asset.objects.filter(holder__id=holder_id)
-    }
-    result = generate_pdf('receipt_sheet.html', file_object=resp, context=context)
-    return result
-
 """ class GeneratePDF(View):
     def get(self, request, *args, **kwargs):
         template = get_template('receipt_sheet.html')
@@ -140,3 +148,31 @@ def stockadmin(request):
 def psbmarked(request):
     assets = Asset.objects.filter(psbstatus='MARKED').order_by('inventorytag')
     return render(request, 'inventory/psbmarked.html', {'assets': assets})
+
+def create_pdf(request):
+    holders = Holder.objects.all()
+    html = loader.render_to_string('inventory/holders.html', {'holders': holders})
+    output= pdfkit.from_string(html, output_path=False)
+    response = HttpResponse(content_type="application/pdf")
+    response.write(output)
+    return response
+
+def receiptsheet(request, holder_id):
+    # resp = HttpResponse(content_type='application/pdf')
+    context = {
+        'holder' : Holder.objects.get(id=holder_id),
+        'assets' : Asset.objects.filter(holder__id=holder_id)
+    }
+    html = loader.render_to_string('inventory/receipt_sheet.html', context)
+    output= pdfkit.from_string(html, output_path=False)
+    response = HttpResponse(content_type="application/pdf")
+    response['Content-Disposition'] = 'inline; filename=recepit_sheet.pdf'
+    response.write(output)
+    return response
+
+def ictreturn(request, asset_id):
+    asset = Asset.objects.get(id=asset_id)
+    asset.id = 20
+    asset.save()
+
+    return HttpResponseRedirect(request.path_info)

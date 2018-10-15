@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from .models import Holder, Asset, Purchaseorder
+from .models import Holder, Asset, Purchaseorder, Assetmodel, Assettype
 
 class HolderForm(ModelForm):
     class Meta:

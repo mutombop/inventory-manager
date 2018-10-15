@@ -32,7 +32,10 @@
                     <td>{{ asset.serialnumber }}</td>
                     <td>{{ asset.holder.full_name }}</td>
                     <!-- <td>{{ asset.holder.first_name }} {{ asset.holder.last_name }}</td> -->
-                    <td><a href="#" class="btn btn-outline-secondary btn-sm">Return to ICT</a></td>
+                    <td><form action="{% url 'ict_return' %}" method="POST">{% csrf_token %}<input type="hidden" name="assetID" value="{{asset.id}}"/>
+                        <button class="btn btn-sm btn-outline-secondary" type="submit">Return asset to ICT</button>
+                    </form></td>
+                    <!-- <td><a href="#" class="btn btn-outline-secondary btn-sm">Return to ICT</a></td> -->
                     <!-- <td><a href="#" class="btn btn-outline-danger btn-sm">Mark for PSB</a></td> -->
                     <td><a href="#" class="btn btn-outline-info btn-sm">Return to ADMIN</a></td>
                 </tr>
