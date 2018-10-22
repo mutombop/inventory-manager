@@ -1,10 +1,9 @@
 {% extends "inventory/base.html" %}
 
 {% load bootstrap4 %}
-{% bootstrap_css %}
-{% bootstrap_javascript jquery='full' %}
+{% block extrahead %}
 {{ form.media }}
-
+{% endblock %}
 
 {% block content %}
 <div class="container">
