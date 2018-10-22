@@ -1,3 +1,5 @@
+from auditlog.models import AuditlogHistoryField
+from auditlog.registry import auditlog
 from django.db import models
 from django.urls import reverse
 """ from audit_log.models.fields import LastUserField
@@ -40,6 +42,7 @@ class Holder(models.Model):
     dutystation = models.ForeignKey(Dutystation, null=True, on_delete=models.SET_NULL)
     active = models.BooleanField(default=True)
 
+
     # audit_log = AuditLog()
 
     def __str__(self):
@@ -52,6 +55,7 @@ class Holder(models.Model):
     def full_name(self):
         return '%s %s' % (self.first_name, self.last_name)
 
+
 class Purchaseorder(models.Model):
     number = models.PositiveIntegerField(unique=True)
     section = models.ForeignKey(Section, null=True, on_delete=models.SET_NULL)
@@ -60,7 +64,11 @@ class Purchaseorder(models.Model):
     def __str__(self):
         return str(self.number)
 
+    def get_absolute_url(self):
+        return reverse('po_detail', args=(self.id,))
+
 class Asset(models.Model):
+    history = AuditlogHistoryField()
     inventorytag = models.CharField("Inventory Tag", max_length=6, unique=True)
     amr = models.PositiveIntegerField("AMR", unique=True)
     assettype = models.ForeignKey(Assettype, on_delete=models.CASCADE)
@@ -89,3 +97,8 @@ class Asset(models.Model):
 
     def __str__(self):
         return self.assetmodel.name
+
+    def get_absolute_url(self):
+        return reverse('asset_detail', args=(self.id,))
+
+auditlog.register(Asset, include_fields=['inventorytag', 'amr', 'serialnumber', 'psbstatus', 'comment', 'holder'])

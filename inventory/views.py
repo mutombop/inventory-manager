@@ -1,10 +1,14 @@
 from datetime import datetime, timedelta
+from django.conf import settings
+from bootstrap_datepicker_plus import DatePickerInput
 from django.shortcuts import render, redirect
 # from django.urls import reverse
 # from django.views.generic import View
 from django.contrib.auth.decorators import login_required
+from django.views import generic
 from django.views.generic.edit import UpdateView
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import CreateView
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.contrib import messages
@@ -23,11 +27,11 @@ options = {
 }
 path_wkthmltopdf = 'C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe'
 config = pdfkit.configuration(wkhtmltopdf=path_wkthmltopdf)
-pdfkit.from_url("http://google.com", "out.pdf", configuration=config, options=options)
+# pdfkit.from_url("http://google.com", "out.pdf", configuration=config, options=options)
 
 # for PDF rendering
-from django.conf import settings
-from django.views.generic import DetailView
+# from django.conf import settings
+# from django.views.generic import DetailView
 from django.template import loader
 
 
@@ -39,7 +43,7 @@ def sections(request):
 
 def holders_index(request):
     holders_list = Holder.objects.filter(active=True).order_by('first_name', 'last_name')
-    paginator = Paginator(holders_list, 5)
+    paginator = Paginator(holders_list, 10)
     page = request.GET.get('page')
     try:
         holders = paginator.get_page(page)
@@ -98,7 +102,7 @@ def create_po(request):
             return redirect('allpos')
     else:
         form = forms.PurchaseorderForm()
-    return render(request, 'inventory/po_create.html', {'form': form})
+    return render(request, 'inventory/po_create.html', {'my_form': form})
 
 def holder_assets(request, holder_id):
     assets = Asset.objects.filter(holder__id=holder_id)
@@ -117,20 +121,18 @@ class AssetUpdate(UpdateView):
     model = Asset
     fields = '__all__'
 
+class AssetDetail(DetailView):
+    model = Asset
+    fields = '__all__'
+
+class PurchaseorderDetail(DetailView):
+    model = Purchaseorder
+    fields = '__all__'
+
 class AssetMarkpsb(UpdateView):
     model = Asset
     fields = ['inventorytag', 'amr', 'serialnumber', 'status', 'psbstatus', 'comment']
     initial = {'psbstatus': 'MARKED'}
-
-""" class GeneratePDF(View):
-    def get(self, request, *args, **kwargs):
-        template = get_template('receipt_sheet.html')
-        context = {
-        'holder': Holder.objects.get(id=holder_id),
-        'assets': Asset.objects.filter(holder__id=holder_id)
-        }
-        html = template.render(context)
-        return HttpResponse(html) """
 
 def laptops3year(request):
     # todaydate = datetime.datetime.now()
@@ -149,22 +151,13 @@ def psbmarked(request):
     assets = Asset.objects.filter(psbstatus='MARKED').order_by('inventorytag')
     return render(request, 'inventory/psbmarked.html', {'assets': assets})
 
-def create_pdf(request):
-    holders = Holder.objects.all()
-    html = loader.render_to_string('inventory/holders.html', {'holders': holders})
-    output= pdfkit.from_string(html, output_path=False)
-    response = HttpResponse(content_type="application/pdf")
-    response.write(output)
-    return response
-
 def receiptsheet(request, holder_id):
-    # resp = HttpResponse(content_type='application/pdf')
     context = {
         'holder' : Holder.objects.get(id=holder_id),
         'assets' : Asset.objects.filter(holder__id=holder_id)
     }
     html = loader.render_to_string('inventory/receipt_sheet.html', context)
-    output= pdfkit.from_string(html, output_path=False)
+    output = pdfkit.from_string(html, output_path=False)
     response = HttpResponse(content_type="application/pdf")
     response['Content-Disposition'] = 'inline; filename=recepit_sheet.pdf'
     response.write(output)
@@ -176,3 +169,11 @@ def ictreturn(request, asset_id):
     asset.save()
 
     return HttpResponseRedirect(request.path_info)
+
+class POView(CreateView):
+    model = Purchaseorder
+    fields = ['number', 'section', 'date_delivered']
+    def get_form(self):
+        form = super().get_form()
+        form.fields['date_delivered'].widget = DatePickerInput()
+        return form

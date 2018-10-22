@@ -1,0 +1,13 @@
+{% extends "inventory/base.html" %}
+{% block content %}
+
+<h2>{{ asset.assetmodel.name }}</h2>
+<hr>
+<p><strong>Inventory tag</strong>: {{asset.inventorytag}} </p>
+<p><strong>Seerial number</strong>: {{asset.serialnumber }}</p>
+<p><strong>AMR</strong>: {{asset.amr}}</p>
+<p><strong>Current holder</strong>: {{asset.holder.full_name}}</p>
+<hr>
+<a class="btn btn-primary btn-sm" href="{% url 'allassets' %}" role="button">Back to assets list</a>
+
+{% endblock %}
