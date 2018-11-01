@@ -12,26 +12,9 @@ from django.views.generic.edit import CreateView
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.contrib import messages
-import pdfkit
 from .models import Section, Holder, Purchaseorder, Asset
 from . import forms
 
-import pdfkit
-options = {
-    'page-size': 'A4',
-    'margin-top': '2in',
-    'margin-right': '1in',
-    'margin-bottom': '1in',
-    'margin-left': '1in',
-    'encoding': "UTF-8",
-}
-path_wkthmltopdf = 'C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe'
-config = pdfkit.configuration(wkhtmltopdf=path_wkthmltopdf)
-# pdfkit.from_url("http://google.com", "out.pdf", configuration=config, options=options)
-
-# for PDF rendering
-# from django.conf import settings
-# from django.views.generic import DetailView
 from django.template import loader
 
 
@@ -88,6 +71,7 @@ def create_asset(request):
         if form.is_valid():
             asset_new = form.save(commit=False)
             asset_new.save()
+            messages.success(request, f'New asset has been created!')
             return redirect('allassets')
     else:
         form = forms.AssetForm()

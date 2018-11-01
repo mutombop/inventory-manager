@@ -1,0 +1,11 @@
+{% extends "inventory/base.html" %}
+{% block content %}
+
+<h2>Purchase order : {{ purchaseorder.number }}</h2>
+<hr>
+<p><strong>Section</strong>: {{purchaseorder.section.name}} </p>
+<p><strong>Date delivered</strong>: {{ purchaseorder.date_delivered }}</p>
+
+<a class="btn btn-primary btn-sm" href="{% url 'allpos' %}" role="button">Back to puchase order list</a>
+
+{% endblock %}
