@@ -1,41 +1,33 @@
-{% extends "inventory/base.html" %}
+{% extends "inventory/base.html" %} 
 {% load crispy_forms_tags %}
-{% block content %}
+ {% block content %}
 
 <div class="create-article">
-    <h2>Create new holder</h2>
-    <br/>
-    <form class="site-form" action="" method="post">
-        {% csrf_token %}
-        <!-- {{ form|crispy }} -->
-        <div class="row">
-            <div class="col-6">
-                {{ form.first_name|as_crispy_field }}
-            </div>
-            <div class="col-6">
-                {{ form.last_name|as_crispy_field }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-6">
-                {{ form.title|as_crispy_field }}
-            </div>
-            <div class="col-6">
-                {{ form.email|as_crispy_field }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-6">
-                {{ form.section|as_crispy_field }}
-            </div>
-            <div class="col-6">
-                {{ form.dutystation|as_crispy_field }}
-            </div>
-        </div>
-        <br/>
-        <input type="submit" class="btn btn-primary" value="Create">
-    </form>
-    <br/>
+  <h2>Create new holder</h2>
+  <br />
+  <form class="site-form" action="" method="post">
+    {% csrf_token %}
+    <!-- {{ form|crispy }} -->
+    <div class="row">
+      <div class="col-6">{{ form.first_name | as_crispy_field }}</div>
+      <div class="col-6">{{ form.last_name | as_crispy_field }}</div>
+    </div>
+    <div class="row">
+      <div class="col-6">{{ form.title | as_crispy_field }}</div>
+      <div class="col-6">{{ form.email | as_crispy_field }}</div>
+    </div>
+    <div class="row">
+      <div class="col-6">{{ form.section | as_crispy_field }}</div>
+      <div class="col-6">{{ form.dutystation | as_crispy_field }}</div>
+    </div>
+
+    <div class="row">
+      <div class="col-6">{{ form.active | as_crispy_field }}</div>
+    </div>
+    <br />
+    <input type="submit" class="btn btn-primary" value="Create" />
+  </form>
+  <br />
 </div>
 
 {% endblock %}
