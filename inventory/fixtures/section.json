@@ -1,0 +1,45 @@
+[
+  {
+	"model":"inventory.section",
+	"pk":1,
+	"fields":{
+	   "code":"S1",
+	   "name":"ICT"
+ 	}
+  },
+  {
+	"model":"inventory.section",
+	"pk":2,
+	"fields":{
+	   "code":"S2",
+	   "name":"HR"
+ 	}
+  },
+  {
+	"model":"inventory.section",
+	"pk":3,
+	"fields":{
+	   "code":"S3",
+	   "name":"Admin"
+ 	}
+  },
+  {
+	"model":"inventory.section",
+	"pk":4,
+	"fields":{
+	   "code":"S4",
+	   "name":"Supply & Logistics"
+ 	}
+  },
+  {
+	"model":"inventory.section",
+	"pk":5,
+	"fields":{
+	   "code":"S5",
+	   "name":"Finance"
+ 	}
+  }
+  
+
+]
+ 

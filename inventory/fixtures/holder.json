@@ -1,0 +1,20 @@
+[
+  {
+	"model":"inventory.holder",
+	"pk":1,
+	"fields":{
+	   "first_name":"Patrick",
+	   "last_name":"Mutombo",
+	   "title":"ICT Specialist",
+	   "email":"pmutombo@unicef.org",
+	   "section":1,
+	   "dutystation":1,
+	   "active": "True"
+ 	}
+  }
+  
+]
+ 
+
+
+    
