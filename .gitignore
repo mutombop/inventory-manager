@@ -116,3 +116,7 @@ __pycache__/
 venv/
 
 *.sqlite3
+
+
+# vscode settings
+.vscode
