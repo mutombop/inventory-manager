@@ -1,0 +1,11 @@
+[
+  {
+	"model":"inventory.dutystation",
+	"pk":1,
+	"fields":{
+	   "name":"Antananarivo"
+ 	}
+  }
+  
+]
+ 

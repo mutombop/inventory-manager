@@ -1,0 +1,20 @@
+[
+  {
+	"model":"inventory.assetmodel",
+	"pk":1,
+	"fields":{
+		"assettype":1,
+	    "name":"Lenovo Yoga"
+ 	}
+  },
+  {
+	"model":"inventory.assetmodel",
+	"pk":2,
+	"fields":{
+		"assettype":1,
+	    "name":"Lenovo Thinkpad"
+ 	}
+  }
+  
+]
+ 

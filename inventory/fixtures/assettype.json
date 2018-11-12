@@ -1,0 +1,47 @@
+[
+  {
+	"model":"inventory.assettype",
+	"pk":1,
+	"fields":{
+	   "name":"Laptop"
+ 	}
+  },
+  {
+	"model":"inventory.assettype",
+	"pk":2,
+	"fields":{  
+	   "name":"Desktop"
+ 	}
+  },
+  {
+	"model":"inventory.assettype",
+	"pk":3,
+	"fields":{   
+	   "name":"Printer"
+ 	}
+  },
+  {
+	"model":"inventory.assettype",
+	"pk":4,
+	"fields":{
+	   "name":"Mouse"
+ 	}
+  },
+  {
+	"model":"inventory.assettype",
+	"pk":5,
+	"fields":{	   
+	   "name":"Monitor"
+ 	}
+  },
+  {
+	"model":"inventory.assettype",
+	"pk":6,
+	"fields":{
+	   "name":"Keyboard"
+ 	}
+  }
+  
+
+]
+ 

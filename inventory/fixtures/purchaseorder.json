@@ -1,0 +1,22 @@
+[
+  {
+	"model":"inventory.purchaseorder",
+	"pk":1,
+	"fields":{
+	   "number":81058381,
+	   "section":1,
+	   "date_delivered":"2018-03-22"
+ 	}
+  },
+  {
+	"model":"inventory.purchaseorder",
+	"pk":2,
+	"fields":{
+	   "number":81057184,
+	   "section":1,
+	   "date_delivered":"2018-01-10"
+ 	}
+  }
+  
+]
+ 
