@@ -42,7 +42,7 @@ def pos_index(request):
 
 @login_required(login_url='login/')
 def assets_index(request):
-    assets_list = Asset.objects.filter(psbstatus='NONE').order_by('inventorytag')
+    assets_list = Asset.objects.order_by('inventorytag')
     paginator = Paginator(assets_list, 5)
     page = request.GET.get('page')
     try:
@@ -104,6 +104,7 @@ class HolderDetail(DetailView):
 class AssetUpdate(UpdateView):
     model = Asset
     fields = '__all__'
+    success_url="/assets/"  
 
 class AssetDetail(DetailView):
     model = Asset
@@ -161,3 +162,10 @@ class POView(CreateView):
         form = super().get_form()
         form.fields['date_delivered'].widget = DatePickerInput()
         return form
+
+
+
+
+
+
+

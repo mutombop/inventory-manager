@@ -49,4 +49,6 @@ urlpatterns = [
     path('sections/', views.sections, name='allsections'),
     path('stockict/', views.stockict, name='stock_ict'),
     path('stockadmin/', views.stockadmin, name='stock_admin'),
+
+   
 ]
