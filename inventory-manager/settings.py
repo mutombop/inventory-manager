@@ -58,7 +58,7 @@ MIDDLEWARE = [
     'auditlog.middleware.AuditlogMiddleware',
 ]
 
-ROOT_URLCONF = 'invproject.urls'
+ROOT_URLCONF = 'inventory-manager.urls'
 
 TEMPLATES = [
     {
@@ -76,7 +76,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'invproject.wsgi.application'
+WSGI_APPLICATION = 'inventory-manager.wsgi.application'
 
 
 # Database
