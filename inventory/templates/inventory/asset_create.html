@@ -4,41 +4,10 @@
 
 <div class="create-article">
     <h2>Create new asset</h2>
-    <form class="site-form" action="" method="POST">
+    <form class="site-form" action="" method="post">
         {% csrf_token %}
-        <!-- {{ form|crispy }} -->
-        <div class="row">
-            <div class="col-6">
-                {{ form.inventorytag|as_crispy_field }}
-            </div>
-            <div class="col-6">
-                {{ form.amr|as_crispy_field }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-6">
-                {{ form.assettype|as_crispy_field }}
-            </div>
-            <div class="col-6">
-                {{ form.assetmodel|as_crispy_field }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-6">
-                {{ form.po|as_crispy_field }}
-            </div>
-            <div class="col-6">
-                {{ form.price|as_crispy_field }}
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-6">
-                {{ form.holder|as_crispy_field }}
-            </div>
-            <div class="col-6">
-                {{ form.comment|as_crispy_field }}
-            </div>
-        </div>
+        {{ form|crispy }}
+        
         <input type="submit" class="btn btn-primary" value="Create">
          <!-- <button type ="submit" class="btn btn-primary">Create</button> -->
     </form>

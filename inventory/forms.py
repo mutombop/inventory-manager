@@ -8,14 +8,12 @@ class HolderForm(ModelForm):
     class Meta:
         model = Holder
         fields = ['first_name', 'last_name', 'title', 'email', 'section', 'dutystation', 'active']
-
-
+        
 class AssetForm(ModelForm):
     class Meta:
         model = Asset
         fields = '__all__'
-
-
+        
 class PurchaseorderForm(forms.ModelForm):
     class Meta:
         model = Purchaseorder
